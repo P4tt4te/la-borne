@@ -22,12 +22,16 @@ function Box(props) {
       {...props}
       ref={mesh}
       scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
+      onClick={(event) => console.log("click")}
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}
     >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
+      <planeGeometry args={[20, 10]} />
+      <Html position={[0, 0.05, 0.09]} transform occlude>
+        <div>
+            <img src={"https://apexcharts.com/wp-content/uploads/2021/02/basic-boxplot.svg"} />
+        </div>
+      </Html>
     </mesh>
   );
 }
@@ -44,6 +48,8 @@ const Theater = ({ handleChangeView }) => {
         <OrbitControls
           enablePan={false}
           enableZoom={false}
+          minAzimuthAngle={-Math.PI / 3}
+          maxAzimuthAngle={Math.PI / 3}
           minPolarAngle={Math.PI / 2.2}
           maxPolarAngle={Math.PI / 2.2}
         />
