@@ -4,13 +4,51 @@
 }
 
 .terminal-border-left {
+  padding: 45px 45px;
   background-color: black;
   border-radius: 32px 0 0 32px;
   width: 75%;
 }
 
 .terminal-border-right {
+  padding: 10px 15px;
   background-color: gray;
   border-radius: 0 32px 32px 0;
   width: 25%;
+}
+
+.terminal-buttons-filter {
+  display: inline-flex;
+  margin-bottom: 50px;
+}
+
+.terminal-buttons-filter .button-filter {
+  background-color: lightgray;
+  margin-right: 20px;
+  padding: 10px 15px;
+  border-radius: 32px;
+}
+
+.movie-cards {
+  display: grid;
+
+}
+
+.movie-poster {
+  background-color: lightgray;
+  width: 170px;
+  height: 200px;
+  margin-right: 30px;
+}
+
+@media (min-width: 600px) {
+  .movie-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .movie-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .movie-cards { grid-template-columns: repeat(3, 1fr); }
 }
