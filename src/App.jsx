@@ -20,7 +20,7 @@ function App() {
             <Theater handleChangeView={handleChangeView} />
       }
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
