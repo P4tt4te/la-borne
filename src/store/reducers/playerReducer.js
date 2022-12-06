@@ -14,13 +14,17 @@ const reducer = (state = playerState, action = {}) => {
     case SET_FILM_ACTIVE:
       let newFilm = action.payload;
 
+      console.log(newFilm);
+
       return {
         ...state,
         filmActive: [newFilm],
       };
     case ADD_FILM_HISTORY:
-      const history = [...filmHistoric];
+      const history = [...state.filmHistoric];
       history.push(action.payload);
+
+      console.log(history);
 
       return {
         ...state,
