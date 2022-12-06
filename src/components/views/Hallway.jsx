@@ -1,6 +1,8 @@
 import React from "react";
 
-const Hallway = () => {
+const Hallway = ({
+    handleChangeView
+}) => {
     return (
         <div>
             Hallway

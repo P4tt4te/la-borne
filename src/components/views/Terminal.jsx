@@ -1,9 +1,16 @@
 import React from "react";
 
-const Terminal = () => {
+const Terminal = ({
+    handleChangeView
+}) => {
     return (
-        <div>
-           Terminal 
+        <div className="terminal">
+            <div className="terminal-border-left">
+                Terminal
+            </div>
+            <div className="terminal-border-right">
+                border right
+            </div>
         </div>
     )
 }

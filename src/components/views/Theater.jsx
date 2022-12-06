@@ -1,6 +1,8 @@
 import React from "react";
 
-const Theater = () => {
+const Theater = ({
+    handleChangeView
+}) => {
     return (
         <div>
            Theater 
