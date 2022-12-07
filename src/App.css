@@ -1,20 +1,67 @@
+@font-face {
+  font-family: "Gulax";
+  src: local("Gulax-Regular"),
+    url("src/assets/fonts/Gulax-Regular.otf") format("opentype");
+}
+
+:root {
+  --main-borne: #FFFFFF;
+  --secondary-borne: #8c8383;
+}
+
 .terminal {
   width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   display: inline-flex;
+  background: #1E1E1E;
 }
 
 .terminal-border-left {
-  padding: 45px 45px;
   background-color: black;
-  border-radius: 32px 0 0 32px;
-  width: 75%;
+  margin: 20px 10px 20px 20px;
+  border-radius: 10px;
+  width: 80%;
 }
 
 .terminal-border-right {
-  padding: 10px 15px;
-  background-color: gray;
-  border-radius: 0 32px 32px 0;
-  width: 25%;
+  margin: 20px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--main-borne);
+  font-family: "Gulax", Inter, Arial;
+}
+
+.terminal-right-title > h1 {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 3rem;
+}
+
+.terminal-right-title > p {
+  margin: 0;
+  padding: 0;
+  color: var(--secondary-borne);
+}
+
+.terminal-right-ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-ticket-box {
+  background: #D9D9D9;
+  width: 204px;
+  height: 12px;
+  box-shadow: 0px 4px 3px 0px #00000082 inset;
 }
 
 .terminal-buttons-filter {
@@ -47,9 +94,14 @@
 }
 
 .movie-poster img {
-  width: 400px;
   height: 500px;
+  border-radius: 10px;
 }
+
+.movie-poster-image {
+  position: relative;
+}
+
 
 .theater-chart {
   color: black;
