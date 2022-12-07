@@ -49,7 +49,7 @@ function Wall(props) {
   return (
     <mesh {...props} ref={mesh} scale={1}>
       <planeGeometry args={[100, 50]} />
-      <meshPhongMaterial color={"#121212"} roughness={0.7} />
+      <meshPhongMaterial color={"#121212"} roughness={0.2} metalness={0.4} />
     </mesh>
   );
 }
@@ -60,8 +60,8 @@ const Theater = ({ handleChangeView }) => {
   return (
     <div className="theater">
       <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
-        <spotLight position={[10, 20, 20]} intensity={1} />
-        <spotLight position={[-40, 20, 40]} intensity={1} />
+        <spotLight position={[10, 20, 40]} intensity={10} />
+        <spotLight position={[-40, 20, 40]} intensity={10} />
         <Box position={[0, 0, 0]} />
         <Wall position={[0, 0, -1]} />
         <ContactShadows position={[0, -4.5, 0]} scale={20} blur={2} far={4.5} />
