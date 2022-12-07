@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { getFilms } from "../../api/getFilms";
-import MovieCard from "../MovieCard";
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from "keen-slider/react"
 
 const Terminal = ({
     handleChangeView
 }) => {
+    const [sliderRef] = useKeenSlider({
+        slides: {
+            origin: "center",
+            perView: 3,
+            spacing: 44,
+        },
+    })
     const [isLoading, setIsLoading] = useState(true) // popular | top_rated
     const [page, setPage] = useState(1) // popular | top_rated
     const [requestType, setRequestType] = useState("top_rated") // popular | top_rated
@@ -13,29 +21,20 @@ const Terminal = ({
 
     const buttonsFilter = [
         {
-            value : "popular",
-            text : "Par popularité"
+            value: "popular",
+            text: "Par popularité"
         },
         {
-            value : "top_rated",
-            text : "Les mieux notés"
+            value: "top_rated",
+            text: "Les mieux notés"
         },
         {
-            value : "search",
-            text : "Recherche"
+            value: "search",
+            text: "Recherche"
         }
     ]
 
-    const moviesCard = [
-        "titre1",
-        "titre2",
-        "titre3",
-        "titre1",
-        "titre2",
-        "titre3"
-    ]
-
-    async function fetchFilms () {
+    async function fetchFilms() {
         setIsLoading(true);
         const films = await getFilms(requestType, page)
         setFilmsData(films)
@@ -61,17 +60,28 @@ const Terminal = ({
                 <div className="movie-cards">
                     {
                         isLoading ?
-                            <span>Chargement ...</span> :
-                            filmsData.results.map((movie, i) => (
-                                <MovieCard poster_path={movie.poster_path} title={movie.title} key={i} />
-                            ))
+                            <span>Chargement...</span> :
+                            <div ref={sliderRef} className="keen-slider">
+                                {
+                                    filmsData.results.map((movie, i) => (
+                                        <div className={"movie-poster keen-slider__slide number-slide" + i} key={i}>
+                                            <div>
+                                                <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={movie.poster_path} />
+                                            </div>
+                                            <div className="movie-title">
+                                                {movie.title}
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
                     }
                 </div>
             </div>
             <div className="terminal-border-right">
                 border right
             </div>
-        </div>
+        </div >
     )
 }
 
