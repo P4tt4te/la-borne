@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import background from "../../assets/background_ticket.svg";
 import bbg from "../../assets/bg_ticket.png";
 
 export const PlaceTicket = ({ name }) => {
