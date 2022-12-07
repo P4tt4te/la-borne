@@ -25,13 +25,31 @@ function Box(props) {
       onClick={(event) => console.log("click")}
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}
+      castShadow={true}
+      receiveShadow={true}
     >
-      <planeGeometry args={[20, 10]} />
-      <Html position={[0, 0.05, 0.09]} transform occlude>
-        <div>
-            <img src={"https://apexcharts.com/wp-content/uploads/2021/02/basic-boxplot.svg"} />
+      <boxGeometry args={[20, 10, 2]} />
+      <meshPhongMaterial color={"white"} emissiveIntensity={0} />
+      <Html position={[0, 0.05, 2.09]} color={"transparent"} transform occlude>
+        <div onClick={(e) => e.preventDefault()}>
+          <img
+            src={
+              "https://apexcharts.com/wp-content/uploads/2021/02/basic-boxplot.svg"
+            }
+          />
         </div>
       </Html>
+    </mesh>
+  );
+}
+
+function Wall(props) {
+  const mesh = useRef();
+
+  return (
+    <mesh {...props} ref={mesh} scale={1}>
+      <planeGeometry args={[100, 50]} />
+      <meshPhongMaterial color={"#121212"} roughness={0.7} />
     </mesh>
   );
 }
@@ -42,14 +60,16 @@ const Theater = ({ handleChangeView }) => {
   return (
     <div className="theater">
       <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
-        <pointLight position={[10, 10, 10]} intensity={1.5} />
+        <spotLight position={[10, 20, 20]} intensity={1} />
+        <spotLight position={[-40, 20, 40]} intensity={1} />
         <Box position={[0, 0, 0]} />
+        <Wall position={[0, 0, -1]} />
         <ContactShadows position={[0, -4.5, 0]} scale={20} blur={2} far={4.5} />
         <OrbitControls
           enablePan={false}
           enableZoom={false}
-          minAzimuthAngle={-Math.PI / 3}
-          maxAzimuthAngle={Math.PI / 3}
+          minAzimuthAngle={-Math.PI / 8}
+          maxAzimuthAngle={Math.PI / 8}
           minPolarAngle={Math.PI / 2.2}
           maxPolarAngle={Math.PI / 2.2}
         />
