@@ -5,6 +5,7 @@ import "keen-slider/keen-slider.min.css";
 import { TerminalGallery } from "../Terminal/TerminalGallery";
 import arrow from "../../assets/arrow.svg";
 import { TerminalProfil } from "../Terminal/TerminalProfil";
+import { PlaceTicket } from "../Ticket/PlaceTicket";
 
 const Terminal = ({ handleChangeView }) => {
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
@@ -95,6 +96,9 @@ const Terminal = ({ handleChangeView }) => {
             <img src={arrow} />
           </div>
           <div className="terminal-ticket-box"></div>
+          <div className="ticket-test">
+            <PlaceTicket name="Test" />
+          </div>
         </div>
         <div className="terminal-right-title">
           <h1>La borne</h1>
