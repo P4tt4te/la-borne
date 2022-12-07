@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { getFilms } from "../../api/getFilms";
 import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
+import { TerminalGallery } from "../Terminal/TerminalGallery";
 import arrow from "../../assets/arrow.svg";
 
 const Terminal = ({ handleChangeView }) => {
-  const [sliderRef] = useKeenSlider({
-    slides: {
-      origin: "center",
-      perView: 3,
-      spacing: 44,
-    },
-  });
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
   const [page, setPage] = useState(1); // popular | top_rated
   const [requestType, setRequestType] = useState("top_rated"); // popular | top_rated
   const [selectedButtonFilter, setSelectedButtonFilter] = useState("popular"); // popular | top_rated
   const [filmsData, setFilmsData] = useState(); // popular | top_rated
+  const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
 
   const buttonsFilter = [
     {
       value: "popular",
-      text: "Par popularité",
+      text: "Les plus populaires",
     },
     {
       value: "top_rated",
@@ -29,7 +23,7 @@ const Terminal = ({ handleChangeView }) => {
     },
     {
       value: "search",
-      text: "Recherche",
+      text: "Recherche par nom...",
     },
   ];
 
@@ -42,50 +36,44 @@ const Terminal = ({ handleChangeView }) => {
   }
 
   useEffect(() => {
+    console.log(selectedFilm);
+  }, [selectedFilm]);
+
+  useEffect(() => {
     fetchFilms();
   }, []);
 
   return (
     <div className="terminal">
       <div className="terminal-border-left">
-        <div className="terminal-buttons-filter">
-          {buttonsFilter.map((buttonFilter, i) => (
-            <button
-              value={buttonFilter.value}
-              className={
-                selectedButtonFilter === buttonFilter.value
-                  ? "button-filter active"
-                  : "button-filter"
-              }
-              key={i}
-            >
-              {buttonFilter.text}
-            </button>
-          ))}
-        </div>
-        <div className="movie-cards">
-          {isLoading ? (
-            <span>Chargement...</span>
-          ) : (
-            <div ref={sliderRef} className="keen-slider">
-              {filmsData.results.map((movie, i) => (
-                <div
-                  className={"movie-poster keen-slider__slide number-slide" + i}
+        {selectedFilm === null ? (
+          <>
+            <div className="terminal-buttons-filter">
+              {buttonsFilter.map((buttonFilter, i) => (
+                <button
+                  value={buttonFilter.value}
+                  className={
+                    selectedButtonFilter === buttonFilter.value
+                      ? "button-filter active"
+                      : "button-filter"
+                  }
                   key={i}
                 >
-                  <div className="movie-poster-image">
-                    <img
-                      src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                      alt={movie.poster_path}
-                    />
-                    
-                  </div>
-                  <div className="movie-title">{movie.title}</div>
-                </div>
+                  {buttonFilter.text}
+                </button>
               ))}
             </div>
-          )}
-        </div>
+            <TerminalGallery
+              isLoading={isLoading}
+              filmsData={filmsData}
+              onClick={setSelectedFilm}
+            />
+          </>
+        ) : (
+          <div>
+            <p>film selectionné</p>
+          </div>
+        )}
       </div>
       <div className="terminal-border-right">
         <div className="terminal-right-ticket">

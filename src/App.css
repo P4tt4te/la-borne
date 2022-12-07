@@ -10,7 +10,6 @@
 }
 
 .terminal {
-  width: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -25,11 +24,12 @@
   margin: 20px 10px 20px 20px;
   border-radius: 10px;
   width: 80%;
+  box-sizing: border-box;
+  border: 4px solid #56535380;
 }
 
 .terminal-border-right {
   margin: 20px;
-  width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -90,6 +90,7 @@
 .movie-poster {
   /* background-color: lightgray; */
   width: 400px;
+  overflow: visible;
   /* margin-right: 30px; */
 }
 
@@ -100,8 +101,15 @@
 
 .movie-poster-image {
   position: relative;
+
 }
 
+.image-blur {
+  height: 500px;
+  filter: blur(200px);
+  position: absolute;
+  top: -10px;
+}
 
 .theater-chart {
   color: black;
