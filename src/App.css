@@ -57,11 +57,28 @@
   justify-content: center;
 }
 
+.terminal-ticket {
+  position: relative;
+  overflow: hidden;
+  height: 426.11px;
+}
+
 .terminal-ticket-box {
   background: #d9d9d9;
-  width: 204px;
+  width: 234px;
   height: 12px;
   box-shadow: 0px 4px 3px 0px #00000082 inset;
+}
+
+.terminal-ticket-container {
+  position: absolute;
+  top: -430px;
+  left: 12px;
+  transition: 1.2s ease-in-out;
+}
+
+.terminal-ticket-container.on {
+  top: -10px;
 }
 
 .terminal-buttons-filter {

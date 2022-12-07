@@ -6,6 +6,7 @@ import { TerminalGallery } from "../Terminal/TerminalGallery";
 import arrow from "../../assets/arrow.svg";
 import { TerminalProfil } from "../Terminal/TerminalProfil";
 import { PlaceTicket } from "../Ticket/PlaceTicket";
+import { printTicket } from "../../helpers/printTicket";
 
 const Terminal = ({ handleChangeView }) => {
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
@@ -14,6 +15,7 @@ const Terminal = ({ handleChangeView }) => {
   const [selectedButtonFilter, setSelectedButtonFilter] = useState("popular"); // popular | top_rated
   const [filmsData, setFilmsData] = useState(); // popular | top_rated
   const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
+  const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
 
   const buttonsFilter = [
     {
@@ -84,6 +86,7 @@ const Terminal = ({ handleChangeView }) => {
             isLoading={isLoading}
             selectedFilm={selectedFilm}
             setSelectedFilm={setSelectedFilm}
+            printTicket={setTicketStatus}
           />
         )}
       </div>
@@ -95,9 +98,11 @@ const Terminal = ({ handleChangeView }) => {
             <img src={arrow} />
             <img src={arrow} />
           </div>
-          <div className="terminal-ticket-box"></div>
-          <div className="ticket-test">
-            <PlaceTicket name="Test" />
+          <div className="terminal-ticket">
+            <div className="terminal-ticket-box"></div>
+            <div className={`terminal-ticket-container ${ticketStatus && "on"}`}>
+              {(selectedFilm || ticketStatus === true) && <PlaceTicket name={selectedFilm ? selectedFilm.title : "NO FILMS"} />}
+            </div>
           </div>
         </div>
         <div className="terminal-right-title">

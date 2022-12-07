@@ -2,7 +2,7 @@ import React from "react";
 import star from "../../assets/star.svg";
 import clock from "../../assets/clock.svg";
 
-export const TerminalProfil = ({ isLoading, selectedFilm, setSelectedFilm }) => {
+export const TerminalProfil = ({ isLoading, selectedFilm, setSelectedFilm, printTicket }) => {
   return (
     <div className="terminal-film-profil">
       {isLoading ? (
@@ -50,7 +50,7 @@ export const TerminalProfil = ({ isLoading, selectedFilm, setSelectedFilm }) => 
                 <p>{selectedFilm.overview}</p>
               </div>
               <div className="film-profil-ticket">
-                <button>Acheter mon Ticket</button>
+                <button onClick={() => printTicket(true)}>Acheter mon Ticket</button>
               </div>
             </div>
           </div>
