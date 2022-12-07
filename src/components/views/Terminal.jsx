@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getFilms } from "../../api/getFilms";
+import { getFilmById } from "../../api/getFilmById";
 import "keen-slider/keen-slider.min.css";
 import { TerminalGallery } from "../Terminal/TerminalGallery";
 import arrow from "../../assets/arrow.svg";
+import { TerminalProfil } from "../Terminal/TerminalProfil";
 
 const Terminal = ({ handleChangeView }) => {
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
@@ -26,6 +28,13 @@ const Terminal = ({ handleChangeView }) => {
       text: "Recherche par nom...",
     },
   ];
+
+  async function fetchOneFilm(id) {
+    setIsLoading(true);
+    const film = await getFilmById(id);
+    setSelectedFilm(film);
+    setIsLoading(false);
+  }
 
   async function fetchFilms() {
     setIsLoading(true);
@@ -66,13 +75,15 @@ const Terminal = ({ handleChangeView }) => {
             <TerminalGallery
               isLoading={isLoading}
               filmsData={filmsData}
-              onClick={setSelectedFilm}
+              onClick={fetchOneFilm}
             />
           </>
         ) : (
-          <div>
-            <p>film selectionné</p>
-          </div>
+          <TerminalProfil
+            isLoading={isLoading}
+            selectedFilm={selectedFilm}
+            setSelectedFilm={setSelectedFilm}
+          />
         )}
       </div>
       <div className="terminal-border-right">

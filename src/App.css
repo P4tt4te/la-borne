@@ -5,7 +5,7 @@
 }
 
 :root {
-  --main-borne: #FFFFFF;
+  --main-borne: #ffffff;
   --secondary-borne: #8c8383;
 }
 
@@ -16,7 +16,7 @@
   right: 0;
   left: 0;
   display: inline-flex;
-  background: #1E1E1E;
+  background: #1e1e1e;
 }
 
 .terminal-border-left {
@@ -58,7 +58,7 @@
 }
 
 .terminal-ticket-box {
-  background: #D9D9D9;
+  background: #d9d9d9;
   width: 204px;
   height: 12px;
   box-shadow: 0px 4px 3px 0px #00000082 inset;
@@ -101,7 +101,6 @@
 
 .movie-poster-image {
   position: relative;
-
 }
 
 .image-blur {
@@ -109,6 +108,98 @@
   filter: blur(200px);
   position: absolute;
   top: -10px;
+}
+
+.terminal-film-profil {
+  width: 100%;
+  position: relative;
+}
+
+.terminal-film-profil p,
+.terminal-film-profil h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.film-profil-head {
+  position: absolute;
+  top: -70px;
+  left: 10px;
+  z-index: 5;
+}
+
+.film-profil-container {
+  display: flex;
+  margin: 80px 40px;
+  gap: 20px;
+}
+
+.film-profil-banner {
+  position: absolute;
+  top: -80px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  border-radius: 6px;
+  overflow-y: hidden;
+  filter: blur(6px);
+}
+
+.film-profil-banner img {
+  width: 100%;
+}
+
+.film-profil-poster,
+.film-profil-content {
+  z-index: 3;
+}
+
+.film-profil-poster img {
+  width: 310px;
+  border-radius: 8px;
+}
+
+.film-profil-content {
+  margin-top: 120px;
+}
+
+.film-profil-content-head {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.film-profil-content-head > div > h2 {
+  font-size: 3rem;
+  height: 35px;
+}
+
+.film-profil-head-line {
+  display: flex;
+  gap: 5px;
+  font-size: 14px;
+  align-items: center;
+  color: white;
+}
+
+.film-profil-head-line.gold {
+  color: #c69a03;
+}
+
+.film-profil-categories {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.film-profil-categories > span {
+  background-color: #1e1e1e;
+  padding: 12px 24px;
+  border-radius: 23px;
+}
+
+.film-profil-ticket {
+  margin-top: 10px;
 }
 
 .theater-chart {
