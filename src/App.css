@@ -1,3 +1,4 @@
+
 .terminal {
   width: 100%;
   display: inline-flex;
@@ -54,19 +55,27 @@
   height: 200px;
 }
 
-@media (min-width: 600px) {
-  .movie-cards { grid-template-columns: repeat(2, 1fr); }
+.jauge-div {
+  width: 100%;
+  display: flex;
 }
 
-@media (min-width: 900px) {
-  .movie-cards { grid-template-columns: repeat(3, 1fr); }
+.jauge-ext {
+  margin: auto;
+  width: 180px;
+  height: 300px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='%23D03C3CFF' stroke-width='4' stroke-dasharray='23' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"); 
+  border-radius: 24px;
 }
 
-@media (min-width: 1000px) {
-  .movie-cards { grid-template-columns: repeat(4, 1fr); }
+.jauge-int {
+  border-radius: 24px;
+  margin-top: 10px;
+  width: 160px;
+  height: 280px;
+  position: absolute;
+  background-color: #D03C3CFF;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-
-@media (min-width: 1100px) {
-  .movie-cards { grid-template-columns: repeat(5, 1fr); }
-}

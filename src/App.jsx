@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './App.css'
+import Dataviz from './components/views/Dataviz';
 import Terminal from './components/views/Terminal';
-import Hallway from './components/views/Hallway';
 import Theater from './components/views/Theater';
 
 function App() {
-  const [view, setView] = useState("terminal");
+  const [view, setView] = useState("dataviz");
 
   const handleChangeView = (view) => setView(view)
 
@@ -14,8 +14,8 @@ function App() {
       {
         view === "terminal" ?
           <Terminal handleChangeView={handleChangeView} /> :
-          view === "hallway" ?
-            <Hallway handleChangeView={handleChangeView} /> :
+          view === "dataviz" ?
+            <Dataviz handleChangeView={handleChangeView} /> :
             view === "theater" &&
             <Theater handleChangeView={handleChangeView} />
       }

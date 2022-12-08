@@ -26,15 +26,6 @@ const Terminal = ({
         }
     ]
 
-    const moviesCard = [
-        "titre1",
-        "titre2",
-        "titre3",
-        "titre1",
-        "titre2",
-        "titre3"
-    ]
-
     async function fetchFilms () {
         setIsLoading(true);
         const films = await getFilms(requestType, page)
