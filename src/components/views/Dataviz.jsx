@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Chart from "react-apexcharts";
 import DeficitChart from "./charts/DeficitChart";
 import GeographyChart from "./charts/GeographyChart";
+import ReviewsChart from "./charts/ReviewsChart";
 
 export const fakeData = [
     {
@@ -185,45 +186,63 @@ export const fakeData = [
     },
     {
         "adult": false,
-        "backdrop_path": "/mTWY8zBVWtE4hYsnOiCTWNBw59j.jpg",
+        "backdrop_path": "/198vrF8k7mfQ4FjDJsBmdQcaiyq.jpg",
         "belongs_to_collection": {
-            "id": 97459,
-            "name": "The Jungle Book Collection",
-            "poster_path": "/v6kRvYc9OHZSqwFT400W9aMeWah.jpg",
-            "backdrop_path": "/4dk3nGhGHDqXuUdPC5QASTSkrIb.jpg"
+            "id": 87096,
+            "name": "Avatar Collection",
+            "poster_path": "/uO2yU3QiGHvVp0L5e5IatTVRkYk.jpg",
+            "backdrop_path": "/iaEsDbQPE45hQU2EGiNjXD2KWuF.jpg"
         },
-        "budget": 4000000,
+        "budget": 375000000,
         "genres": [
             {
-                "id": 10751,
-                "name": "Family"
+                "id": 878,
+                "name": "Science Fiction"
             },
             {
-                "id": 16,
-                "name": "Animation"
+                "id": 28,
+                "name": "Action"
             },
             {
                 "id": 12,
                 "name": "Adventure"
+            },
+            {
+                "id": 14,
+                "name": "Fantasy"
             }
         ],
-        "homepage": "http://movies.disney.com/the-jungle-book-1967",
-        "id": 9325,
-        "imdb_id": "tt0061852",
+        "homepage": "https://www.avatar.com/movies/avatar-the-way-of-water",
+        "id": 76600,
+        "imdb_id": "tt1630029",
         "original_language": "en",
-        "original_title": "The Jungle Book",
-        "overview": "The boy Mowgli makes his way to the man-village with Bagheera, the wise panther. Along the way he meets jazzy King Louie, the hypnotic snake Kaa and the lovable, happy-go-lucky bear Baloo, who teaches Mowgli The Bare Necessities of life and the true meaning of friendship.",
-        "popularity": 62.588,
-        "poster_path": "/fyKUxjaOP8KINir6MPFprsGtiT0.jpg",
+        "original_title": "Avatar: The Way of Water",
+        "overview": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+        "popularity": 869.07,
+        "poster_path": "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+        "production_companies": [
+            {
+                "id": 574,
+                "logo_path": "/iB6GjNVHs5hOqcEYt2rcjBqIjki.png",
+                "name": "Lightstorm Entertainment",
+                "origin_country": "US"
+            },
+            {
+                "id": 127928,
+                "logo_path": "/cxMxGzAgMMBhTXkcpYYCxWCOY90.png",
+                "name": "20th Century Studios",
+                "origin_country": "US"
+            }
+        ],
         "production_countries": [
             {
                 "iso_3166_1": "US",
                 "name": "United States of America"
             }
         ],
-        "release_date": "1967-10-18",
-        "revenue": 843612,
-        "runtime": 78,
+        "release_date": "2022-12-14",
+        "revenue": 0,
+        "runtime": 192,
         "spoken_languages": [
             {
                 "english_name": "English",
@@ -232,12 +251,14 @@ export const fakeData = [
             }
         ],
         "status": "Released",
-        "tagline": "The Jungle is JUMPIN'!",
-        "title": "The Jungle Book",
+        "tagline": "Return to Pandora.",
+        "title": "Avatar: The Way of Water",
         "video": false,
-        "vote_average": 7.278,
-        "vote_count": 5482
+        "vote_average": 8.455,
+        "vote_count": 11
     }
+
+
 ]
 
 const Dataviz = ({
@@ -254,13 +275,15 @@ const Dataviz = ({
         '#6122E7',
         '#1D37C3',
     ]
-    let label = ["0 - 10 000 €", "10 000 € - 100 000 €", "100 000 € - 500 000 €", "500 000 € - 900 000 €", "900 000 € - 1 000 000 €", "> 1 000 000 €"];
+    let labelBudgets = ["0 - 10 000 €", "10 000 € - 100 000 €", "100 000 € - 500 000 €", "500 000 € - 900 000 €", "900 000 € - 1 000 000 €", "> 1 000 000 €"];
+    let labelAnnees = ["1960 - 1970", "1970 - 1980", "1980 - 1990", "1990 - 2000", "2000 - 2010", "2010 - Ajourd'hui"];
 
-    const [isLoading, setIsLoading] = useState(true);
     const [genresData, setGenresData] = useState([]);
     const [budgetsData, setBudgetsData] = useState([]);
     const [geoData, setGeoData] = useState([]);
+    const [anneesData, setAnneesData] = useState([]);
     const [deficitData, setDeficitData] = useState(0); // en pourcentage
+    const [reviewsData, setReviewsData] = useState(0); // en pourcentage
 
     const options = {
         colors: colors,
@@ -301,7 +324,28 @@ const Dataviz = ({
             },
         },
         size: '65%',
-        labels: label
+        labels: labelBudgets
+    }
+
+    const optionsAnnees = {
+        colors: colors,
+        dataLabels: {
+            enabled: false
+        },
+
+        chart: {
+            type: "donut",
+            toolbar: {
+                show: false,
+                tools: {
+                    zoom: false,
+                    zoomin: false,
+                    zoomout: false,
+                }
+            },
+        },
+        size: '65%',
+        labels: labelAnnees
     }
 
     const series = [
@@ -311,13 +355,15 @@ const Dataviz = ({
         }
     ]
 
-    const seriesDonut = budgetsData
+    const seriesBudgets = budgetsData
+    const seriesAnnees = anneesData
 
     const makeDataBudgets = () => {
-        let res = [0, 0, 0, 0, 0, 0];
+        let res = []
+        labelBudgets.forEach(a => res.push(0))
 
         fakeData.forEach(fd => { // On itere la liste des donnees
-            if (fd.budget === 0 && fd.budget < 10000) {
+            if (fd.budget >= 0 && fd.budget < 10000) {
                 res[0]++
             } else if (fd.budget >= 10000 && fd.budget < 100000) { // petit 
                 res[1]++
@@ -331,9 +377,7 @@ const Dataviz = ({
                 res[5]++
             }
         })
-
         setBudgetsData([...res]);
-        setIsLoading(false)
     }
     const makeDataGenres = () => {
         let res = [];
@@ -372,18 +416,13 @@ const Dataviz = ({
         const total = fakeData.length
 
         fakeData.forEach(fd => { // On itere la liste des donnees
-            console.log("title", fd.title);
-            console.log("budget", fd.budget);
-            console.log("revenue", fd.revenue);
             if (fd.budget - fd.revenue >= 0) {
                 deficitCount++;
             }
         })
         let res = (deficitCount / total) * 100;
-        console.log(res);
         setDeficitData(res)
     }
-
     const makeDataGeography = () => {
         let res = [
             ["Country", "Movies"]
@@ -406,16 +445,63 @@ const Dataviz = ({
 
         setGeoData([...res])
     }
+    const makeDataReviews = () => {
+        let reviewsCount = 0;
 
+        const total = fakeData.length
+
+        fakeData.forEach(fd => { // On itere la liste des donnees
+            if (fd.vote_average >= 7) {
+                reviewsCount++
+            }
+        })
+        let res = (reviewsCount / total) * 100;
+        setReviewsData(res)
+    }
+    const makeDataAnnees = () => {
+        let res = []
+        labelAnnees.forEach(a => res.push(0))
+
+        fakeData.forEach(fd => { // On itere la liste des donnees
+            const release_year = parseInt(fd.release_date.slice(0, 4))
+            if (release_year >= 1950 && release_year < 1960) {
+                res[0]++
+            } else if (release_year >= 1960 && release_year < 1970) {
+                res[1]++
+            } else if (release_year >= 1970 && release_year < 1980) {
+                res[2]++
+            } else if (release_year >= 1980 && release_year < 1990) {
+                res[3]++
+            } else if (release_year >= 1990 && release_year < 2000) {
+                res[4]++
+            } else if (release_year >= 2000 && release_year < 2010) {
+                res[4]++
+            } else {
+                res[5]++
+            }
+        })
+        setAnneesData([...res]);
+    }
     useEffect(() => {
         makeDataGenres()
         makeDataBudgets()
         makeDataGeography()
         makeDataDeficit()
+        makeDataReviews()
+        makeDataAnnees()
     }, [])
 
     return (
         <div style={{ color: 'black' }}>
+            <h1>Années: DONUT</h1>
+            <Chart
+                type="donut"
+                options={optionsAnnees}
+                series={seriesAnnees}
+                width="500"
+            />
+            <h1>Reviews: JAUGE</h1>
+            <ReviewsChart reviewsData={reviewsData} />
             <h1>Budgets déficit: JAUGE</h1>
             <DeficitChart deficitData={deficitData} />
             <h1>Genres: TREEMAP</h1>
@@ -426,15 +512,12 @@ const Dataviz = ({
                 width="500"
             />
             <h1>Budget: DONUT</h1>
-            {
-                !isLoading &&
-                <Chart
-                    type="donut"
-                    options={optionsBudget}
-                    series={seriesDonut}
-                    width="500"
-                />
-            }
+            <Chart
+                type="donut"
+                options={optionsBudget}
+                series={seriesBudgets}
+                width="500"
+            />
             <h1>Pays: MAP</h1>
             <GeographyChart geoData={geoData} />
         </div>
