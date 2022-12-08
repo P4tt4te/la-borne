@@ -5,7 +5,11 @@ import Terminal from './components/views/Terminal';
 import Theater from './components/views/Theater';
 
 function App() {
+<<<<<<< HEAD
   const [view, setView] = useState("dataviz");
+=======
+  const [view, setView] = useState("theater");
+>>>>>>> feat: import wall texture
 
   const handleChangeView = (view) => setView(view)
 
