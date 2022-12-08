@@ -1,78 +1,117 @@
 import React, { useState, useEffect } from "react";
 import { getFilms } from "../../api/getFilms";
-import MovieCard from "../MovieCard";
+import { getFilmById } from "../../api/getFilmById";
+import "keen-slider/keen-slider.min.css";
+import { TerminalGallery } from "../Terminal/TerminalGallery";
+import arrow from "../../assets/arrow.svg";
+import { TerminalProfil } from "../Terminal/TerminalProfil";
+import { PlaceTicket } from "../Ticket/PlaceTicket";
+import { printTicket } from "../../helpers/printTicket";
 
-const Terminal = ({
-    handleChangeView
-}) => {
-    const [isLoading, setIsLoading] = useState(true) // popular | top_rated
-    const [page, setPage] = useState(1) // popular | top_rated
-    const [requestType, setRequestType] = useState("top_rated") // popular | top_rated
-    const [selectedButtonFilter, setSelectedButtonFilter] = useState("popular") // popular | top_rated
-    const [filmsData, setFilmsData] = useState() // popular | top_rated
+const Terminal = ({ handleChangeView }) => {
+  const [isLoading, setIsLoading] = useState(true); // popular | top_rated
+  const [page, setPage] = useState(1); // popular | top_rated
+  const [requestType, setRequestType] = useState("top_rated"); // popular | top_rated
+  const [selectedButtonFilter, setSelectedButtonFilter] = useState("popular"); // popular | top_rated
+  const [filmsData, setFilmsData] = useState(); // popular | top_rated
+  const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
+  const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
 
-    const buttonsFilter = [
-        {
-            value : "popular",
-            text : "Par popularité"
-        },
-        {
-            value : "top_rated",
-            text : "Les mieux notés"
-        },
-        {
-            value : "search",
-            text : "Recherche"
-        }
-    ]
+  const buttonsFilter = [
+    {
+      value: "popular",
+      text: "Les plus populaires",
+    },
+    {
+      value: "top_rated",
+      text: "Les mieux notés",
+    },
+    {
+      value: "search",
+      text: "Recherche par nom...",
+    },
+  ];
 
-    const moviesCard = [
-        "titre1",
-        "titre2",
-        "titre3",
-        "titre1",
-        "titre2",
-        "titre3"
-    ]
+  async function fetchOneFilm(id) {
+    setIsLoading(true);
+    const film = await getFilmById(id);
+    setSelectedFilm(film);
+    setIsLoading(false);
+  }
 
-    async function fetchFilms () {
-        setIsLoading(true);
-        const films = await getFilms(requestType, page)
-        setFilmsData(films)
-        setIsLoading(false);
-        console.log(films);
-    }
+  async function fetchFilms() {
+    setIsLoading(true);
+    const films = await getFilms(requestType, page);
+    setFilmsData(films);
+    setIsLoading(false);
+    console.log(films);
+  }
 
-    useEffect(() => {
-        fetchFilms()
-    }, [])
+  useEffect(() => {
+    console.log(selectedFilm);
+  }, [selectedFilm]);
 
+  useEffect(() => {
+    fetchFilms();
+  }, []);
 
-    return (
-        <div className="terminal">
-            <div className="terminal-border-left">
-                <div className="terminal-buttons-filter">
-                    {
-                        buttonsFilter.map((buttonFilter, i) => (
-                            <button value={buttonFilter.value} className={selectedButtonFilter === buttonFilter.value ? "button-filter active" : "button-filter"} key={i}>{buttonFilter.text}</button>
-                        ))
-                    }
-                </div>
-                <div className="movie-cards">
-                    {
-                        isLoading ?
-                            <span>Chargement ...</span> :
-                            filmsData.results.map((movie, i) => (
-                                <MovieCard poster_path={movie.poster_path} title={movie.title} key={i} />
-                            ))
-                    }
-                </div>
+  return (
+    <div className="terminal">
+      <div className="terminal-border-left">
+        {selectedFilm === null ? (
+          <>
+            <div className="terminal-buttons-filter">
+              {buttonsFilter.map((buttonFilter, i) => (
+                <button
+                  value={buttonFilter.value}
+                  className={
+                    selectedButtonFilter === buttonFilter.value
+                      ? "button-filter active"
+                      : "button-filter"
+                  }
+                  key={i}
+                >
+                  {buttonFilter.text}
+                </button>
+              ))}
             </div>
-            <div className="terminal-border-right">
-                border right
+            <TerminalGallery
+              isLoading={isLoading}
+              filmsData={filmsData}
+              onClick={fetchOneFilm}
+            />
+          </>
+        ) : (
+          <TerminalProfil
+            isLoading={isLoading}
+            selectedFilm={selectedFilm}
+            setSelectedFilm={setSelectedFilm}
+            printTicket={setTicketStatus}
+          />
+        )}
+      </div>
+      <div className="terminal-border-right">
+        <div className="terminal-right-ticket">
+          <span>Récupérer votre ticket</span>
+          <div>
+            <img src={arrow} />
+            <img src={arrow} />
+            <img src={arrow} />
+          </div>
+          <div className="terminal-ticket">
+            <div className="terminal-ticket-box"></div>
+            <div className={`terminal-ticket-container ${ticketStatus && "on"}`}>
+              {(selectedFilm || ticketStatus === true) && <PlaceTicket name={selectedFilm ? selectedFilm.title : "NO FILMS"} />}
             </div>
+          </div>
         </div>
-    )
-}
+        <div className="terminal-right-title">
+          <h1>La borne</h1>
+          <p>831,946 films</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Terminal;

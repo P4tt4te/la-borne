@@ -1,8 +1,8 @@
 import { apiKey } from "./constants";
 import axios from 'axios';
 
-export const getFilms = (type) => {
-  const page = "1";
+export const getFilms = (type, page) => {
+  // const page = "1";
   // const options = { method: "GET" };
 
   // type : popular | top_rated
