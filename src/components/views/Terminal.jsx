@@ -6,7 +6,8 @@ import { TerminalGallery } from "../Terminal/TerminalGallery";
 import arrow from "../../assets/arrow.svg";
 import { TerminalProfil } from "../Terminal/TerminalProfil";
 import { PlaceTicket } from "../Ticket/PlaceTicket";
-import { printTicket } from "../../helpers/printTicket";
+import { addFilmHistory } from "../../store/actions/actionsTypes";
+import { useDispatch } from "react-redux";
 
 const Terminal = ({ handleChangeView }) => {
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
@@ -16,6 +17,8 @@ const Terminal = ({ handleChangeView }) => {
   const [filmsData, setFilmsData] = useState(); // popular | top_rated
   const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
   const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
+
+  const dispatch = useDispatch();
 
   const buttonsFilter = [
     {
@@ -55,6 +58,15 @@ const Terminal = ({ handleChangeView }) => {
     fetchFilms();
   }, []);
 
+  //si le ticket est true on l'ajoute
+  const printTicket = (value) => {
+    console.log("print ticket");
+    if (ticketStatus === false) {
+      setTicketStatus(true);
+      dispatch(addFilmHistory(selectedFilm));
+    }
+  };
+
   return (
     <div className="terminal">
       <div className="terminal-border-left">
@@ -86,7 +98,7 @@ const Terminal = ({ handleChangeView }) => {
             isLoading={isLoading}
             selectedFilm={selectedFilm}
             setSelectedFilm={setSelectedFilm}
-            printTicket={setTicketStatus}
+            printTicket={printTicket}
           />
         )}
       </div>
@@ -100,8 +112,15 @@ const Terminal = ({ handleChangeView }) => {
           </div>
           <div className="terminal-ticket">
             <div className="terminal-ticket-box"></div>
-            <div className={`terminal-ticket-container ${ticketStatus && "on"}`}>
-              {(selectedFilm || ticketStatus === true) && <PlaceTicket name={selectedFilm ? selectedFilm.title : "NO FILMS"} />}
+            <div
+              onClick={() => handleChangeView("theater")}
+              className={`terminal-ticket-container ${ticketStatus && "on"}`}
+            >
+              {(selectedFilm || ticketStatus === true) && (
+                <PlaceTicket
+                  name={selectedFilm ? selectedFilm.title : "NO FILMS"}
+                />
+              )}
             </div>
           </div>
         </div>
