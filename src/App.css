@@ -74,7 +74,7 @@
   position: absolute;
   top: -430px;
   left: 12px;
-  transition: 1.2s ease-in-out;
+  transition: 2.5s linear;
 }
 
 .terminal-ticket-container.on {
