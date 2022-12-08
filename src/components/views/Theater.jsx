@@ -4,11 +4,17 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import "../styles/Theater.css";
 import {
   Html,
-  Environment,
-  useGLTF,
   ContactShadows,
   OrbitControls,
 } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber/dist/react-three-fiber.cjs";
+import { TextureLoader } from "three";
+import colorMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_basecolor.jpg";
+import normalMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_normal.jpg";
+import heightMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_height.png";
+import roughnessMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_roughness.jpg";
+import aoMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ambientOcclusion.jpg";
+import { ScreenTheater } from "../Theater/ScreenTheater";
 
 function Box(props) {
   // This reference will give us direct access to the mesh
@@ -30,14 +36,8 @@ function Box(props) {
     >
       <boxGeometry args={[20, 10, 2]} />
       <meshPhongMaterial color={"white"} />
-      <Html position={[0, 0.05, 2.09]} color={"transparent"} transform occlude>
-        <div onClick={(e) => e.preventDefault()}>
-          <img
-            src={
-              "https://apexcharts.com/wp-content/uploads/2021/02/basic-boxplot.svg"
-            }
-          />
-        </div>
+      <Html position={[0, 0.05, 1.01]} color={"transparent"} transform occlude>
+        <ScreenTheater />
       </Html>
     </mesh>
   );
@@ -46,10 +46,50 @@ function Box(props) {
 function Wall(props) {
   const mesh = useRef();
 
+  const [colorMap, normalMap, heightMap, roughnessMap, aoMap] = useLoader(
+    TextureLoader,
+    [
+      colorMapTexture,
+      normalMapTexture,
+      heightMapTexture,
+      roughnessMapTexture,
+      aoMapTexture,
+    ]
+  );
+
+  const diviseur = 12;
+
+    colorMap.repeat.set(diviseur, diviseur);
+    aoMap.repeat.set(diviseur, diviseur);
+    normalMap.repeat.set(diviseur, diviseur);
+    heightMap.repeat.set(diviseur, diviseur);
+    roughnessMap.repeat.set(diviseur, diviseur);
+
+    colorMap.wrapS = THREE.RepeatWrapping;
+    colorMap.wrapT = THREE.RepeatWrapping;
+    normalMap.wrapS = THREE.RepeatWrapping;
+    normalMap.wrapT = THREE.RepeatWrapping;
+    heightMap.wrapS = THREE.RepeatWrapping;
+    heightMap.wrapT = THREE.RepeatWrapping;
+    roughnessMap.wrapS = THREE.RepeatWrapping;
+    roughnessMap.wrapT = THREE.RepeatWrapping;
+    aoMap.wrapS = THREE.RepeatWrapping;
+    aoMap.wrapT = THREE.RepeatWrapping;
+    
+    
+
+
   return (
-    <mesh {...props} ref={mesh} scale={1}>
-      <planeGeometry args={[100, 50]} />
-      <meshPhongMaterial color={"black"} roughness={0.6} metalness={0} />
+    <mesh {...props} ref={mesh}>
+      <planeGeometry args={[100, 100, 100, 100]} />
+      <meshStandardMaterial
+        map={colorMap}
+        normalMap={normalMap}
+        displacementMap={heightMap}
+        displacementScale={0.4}
+        roughnessMap={roughnessMap}
+        aoMap={aoMap}
+      />
     </mesh>
   );
 }
@@ -60,9 +100,8 @@ const Theater = ({ handleChangeView }) => {
   return (
     <div className="theater">
       <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
-        <ambientLight color={"#FFFFFF"} intensity={1} />
-        <spotLight position={[40, 10, 30]} intensity={4} />
-        <spotLight position={[-40, 10, 30]} intensity={4} />
+        <spotLight position={[40, 10, 30]} intensity={1.2} />
+        <spotLight position={[-40, 10, 30]} intensity={1.2} />
         <Box position={[0, 0, 0]} />
         <Wall position={[0, 0, -1]} />
         <ContactShadows position={[0, -4.5, 0]} scale={10} blur={2} far={4.5} />
