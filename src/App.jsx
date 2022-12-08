@@ -5,7 +5,7 @@ import Hallway from './components/views/Hallway';
 import Theater from './components/views/Theater';
 
 function App() {
-  const [view, setView] = useState("terminal");
+  const [view, setView] = useState("theater");
 
   const handleChangeView = (view) => setView(view)
 
