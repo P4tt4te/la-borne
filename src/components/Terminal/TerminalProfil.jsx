@@ -25,7 +25,7 @@ export const TerminalProfil = ({
       ) : (
         <>
           {onPrint ? (
-            <div>
+            <div className="film-profil-print">
               <p>En cours d'impression...</p>
             </div>
           ) : (
