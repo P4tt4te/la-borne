@@ -99,6 +99,10 @@
   align-items: center;
 }
 
+.terminal-buttons-filter .button-filter:hover {
+  cursor: pointer
+}
+
 .terminal-buttons-filter .button-filter.active {
   opacity: 1;
 }

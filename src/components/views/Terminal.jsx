@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import cup from "../../assets/buttons/cup.svg";
 import glass from "../../assets/buttons/glass.svg";
 import star from "../../assets/buttons/star.svg";
+import { getFilmByName } from "../../api/getFilmByName";
 
 const Terminal = ({ handleChangeView }) => {
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
@@ -56,13 +57,43 @@ const Terminal = ({ handleChangeView }) => {
     console.log(films);
   }
 
+  async function fetchFilmsByName(event) {
+    event.preventDefault();
+    setIsLoading(true);
+    const films = await getFilmByName(event.target.children[0].value);
+    setFilmsData(films);
+    setIsLoading(false);
+  }
+
   useEffect(() => {
     console.log(selectedFilm);
   }, [selectedFilm]);
 
   useEffect(() => {
+    switch (selectedButtonFilter) {
+      case "popular":
+        console.log("popular");
+        setRequestType("popular");
+        break;
+      case "top_rated":
+        console.log("top_rated");
+        setRequestType("top_rated");
+        break;
+      case "search":
+        console.log("search");
+        break;
+    }
+  }, [selectedButtonFilter]);
+
+  useEffect(() => {
+    console.log("rerequest");
+    fetchFilms();
+  }, [requestType]);
+
+  useEffect(() => {
     fetchFilms();
   }, []);
+
 
   //si le ticket est true on l'ajoute
   const printTicket = (value) => {
@@ -73,6 +104,7 @@ const Terminal = ({ handleChangeView }) => {
     }
   };
 
+
   return (
     <div className="terminal">
       <div className="terminal-border-left">
@@ -80,14 +112,21 @@ const Terminal = ({ handleChangeView }) => {
           <>
             {isOnMenu ? (
               <>
-                <button onClick={() => setIsOnMenu(false)}>Acheter un ticket</button>
-                <button onClick={() => handleChangeView("dataviz")}>Statistiques de mes films</button>
+                <button onClick={() => setIsOnMenu(false)}>
+                  Acheter un ticket
+                </button>
+                <button onClick={() => handleChangeView("dataviz")}>
+                  Statistiques de mes films
+                </button>
               </>
             ) : (
               <>
                 <div className="terminal-buttons-filter">
                   {buttonsFilter.map((buttonFilter, i) => (
                     <button
+                      onClick={() =>
+                        setSelectedButtonFilter(buttonFilter.value)
+                      }
                       value={buttonFilter.value}
                       className={
                         selectedButtonFilter === buttonFilter.value
@@ -100,6 +139,14 @@ const Terminal = ({ handleChangeView }) => {
                       <img src={buttonFilter.icon} alt={buttonFilter.icon} />
                     </button>
                   ))}
+                  {selectedButtonFilter === "search" && (
+                    <form onSubmit={(e) => fetchFilmsByName(e)}>
+                      <input
+                        type="text"
+                        onChange={(e) => console.log(e.target.value)}
+                      />
+                    </form>
+                  )}
                 </div>
                 <TerminalGallery
                   isLoading={isLoading}
