@@ -29,6 +29,11 @@ export const TerminalGallery = ({ isLoading, filmsData, onClick }) => {
                     alt={movie.poster_path}
                   />
                 </div>
+                <img
+                  className="image-blur"
+                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  alt={movie.poster_path}
+                />
                 <div className="movie-title">{movie.title}</div>
               </div>
             ))}

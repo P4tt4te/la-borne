@@ -72,11 +72,9 @@ const Terminal = ({ handleChangeView }) => {
   useEffect(() => {
     switch (selectedButtonFilter) {
       case "popular":
-        console.log("popular");
         setRequestType("popular");
         break;
       case "top_rated":
-        console.log("top_rated");
         setRequestType("top_rated");
         break;
       case "search":
