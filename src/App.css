@@ -185,15 +185,21 @@
 }
 
 .jauge-int {
-  border-radius: 24px;
+  /* border-radius: 24px; */
   margin-top: 10px;
   width: 160px;
   height: 280px;
   position: absolute;
-  background-color: #D03C3CFF;
   left: 50%;
   transform: translateX(-50%);
 }
+
+.jauge-int-active {
+  border-radius: 24px;
+  width: 160px;
+  background-color: #D03C3CFF;
+}
+
 
 .film-profil-poster img {
   width: 310px;

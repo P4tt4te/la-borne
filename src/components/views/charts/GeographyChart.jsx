@@ -30,7 +30,7 @@ export const options = {
     defaultColor: "#f5f5f5",
   };
 
-const GeographyChart = () => {
+const GeographyChart = ({ geoData }) => {
 
     return (
         <Chart
@@ -49,7 +49,7 @@ const GeographyChart = () => {
             chartType="GeoChart"
             width="100%"
             height="400px"
-            data={data}
+            data={geoData}
             options={options}
         />
     )
