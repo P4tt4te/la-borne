@@ -99,6 +99,7 @@ const Theater = ({ handleChangeView }) => {
 
   return (
     <div className="theater">
+      <button className="theater-exit-button" onClick={() => handleChangeView("terminal")}>Retour</button>
       <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
         <spotLight position={[40, 10, 30]} intensity={1.2} />
         <spotLight position={[-40, 10, 30]} intensity={1.2} />

@@ -8,6 +8,9 @@ import { TerminalProfil } from "../Terminal/TerminalProfil";
 import { PlaceTicket } from "../Ticket/PlaceTicket";
 import { addFilmHistory } from "../../store/actions/actionsTypes";
 import { useDispatch } from "react-redux";
+import cup from "../../assets/buttons/cup.svg";
+import glass from "../../assets/buttons/glass.svg";
+import star from "../../assets/buttons/star.svg";
 
 const Terminal = ({ handleChangeView }) => {
   const [isLoading, setIsLoading] = useState(true); // popular | top_rated
@@ -17,6 +20,7 @@ const Terminal = ({ handleChangeView }) => {
   const [filmsData, setFilmsData] = useState(); // popular | top_rated
   const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
   const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
+  const [isOnMenu, setIsOnMenu] = useState(true); // savoir si nous sommes sur le menu principale
 
   const dispatch = useDispatch();
 
@@ -24,14 +28,17 @@ const Terminal = ({ handleChangeView }) => {
     {
       value: "popular",
       text: "Les plus populaires",
+      icon: cup,
     },
     {
       value: "top_rated",
       text: "Les mieux notés",
+      icon: star,
     },
     {
       value: "search",
       text: "Recherche par nom...",
+      icon: glass,
     },
   ];
 
@@ -72,26 +79,36 @@ const Terminal = ({ handleChangeView }) => {
       <div className="terminal-border-left">
         {selectedFilm === null ? (
           <>
-            <div className="terminal-buttons-filter">
-              {buttonsFilter.map((buttonFilter, i) => (
-                <button
-                  value={buttonFilter.value}
-                  className={
-                    selectedButtonFilter === buttonFilter.value
-                      ? "button-filter active"
-                      : "button-filter"
-                  }
-                  key={i}
-                >
-                  {buttonFilter.text}
-                </button>
-              ))}
-            </div>
-            <TerminalGallery
-              isLoading={isLoading}
-              filmsData={filmsData}
-              onClick={fetchOneFilm}
-            />
+            {isOnMenu ? (
+              <>
+                <button onClick={() => setIsOnMenu(false)}>Acheter un ticket</button>
+                <button onClick={() => handleChangeView("dataviz")}>Statistiques de mes films</button>
+              </>
+            ) : (
+              <>
+                <div className="terminal-buttons-filter">
+                  {buttonsFilter.map((buttonFilter, i) => (
+                    <button
+                      value={buttonFilter.value}
+                      className={
+                        selectedButtonFilter === buttonFilter.value
+                          ? "button-filter active"
+                          : "button-filter"
+                      }
+                      key={i}
+                    >
+                      <span>{buttonFilter.text}</span>
+                      <img src={buttonFilter.icon} alt={buttonFilter.icon} />
+                    </button>
+                  ))}
+                </div>
+                <TerminalGallery
+                  isLoading={isLoading}
+                  filmsData={filmsData}
+                  onClick={fetchOneFilm}
+                />
+              </>
+            )}
           </>
         ) : (
           <TerminalProfil

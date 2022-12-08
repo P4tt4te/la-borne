@@ -84,20 +84,23 @@
 .terminal-buttons-filter {
   display: inline-flex;
   margin-bottom: 50px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .terminal-buttons-filter .button-filter {
-  background-color: lightgray;
-  margin-right: 20px;
+  opacity: 0.7;
+  margin-right: 10px;
   padding: 10px 15px;
-  border-radius: 32px;
+  background: transparent;
+  border: none;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 .terminal-buttons-filter .button-filter.active {
-  background-color: rgb(129, 100, 100);
-  margin-right: 20px;
-  padding: 10px 15px;
-  border-radius: 32px;
+  opacity: 1;
 }
 
 .movie-cards {
