@@ -4,8 +4,6 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import "../styles/Theater.css";
 import {
   Html,
-  Environment,
-  useGLTF,
   ContactShadows,
   OrbitControls,
 } from "@react-three/drei";
@@ -16,6 +14,7 @@ import normalMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_norma
 import heightMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_height.png";
 import roughnessMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_roughness.jpg";
 import aoMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ambientOcclusion.jpg";
+import { ScreenTheater } from "../Theater/ScreenTheater";
 
 function Box(props) {
   // This reference will give us direct access to the mesh
@@ -37,14 +36,8 @@ function Box(props) {
     >
       <boxGeometry args={[20, 10, 2]} />
       <meshPhongMaterial color={"white"} />
-      <Html position={[0, 0.05, 2.09]} color={"transparent"} transform occlude>
-        <div onClick={(e) => e.preventDefault()}>
-          <img
-            src={
-              "https://apexcharts.com/wp-content/uploads/2021/02/basic-boxplot.svg"
-            }
-          />
-        </div>
+      <Html position={[0, 0.05, 1.01]} color={"transparent"} transform occlude>
+        <ScreenTheater />
       </Html>
     </mesh>
   );
@@ -88,7 +81,7 @@ function Wall(props) {
 
   return (
     <mesh {...props} ref={mesh}>
-      <planeGeometry args={[100, 100, 300, 300]} />
+      <planeGeometry args={[100, 100, 100, 100]} />
       <meshStandardMaterial
         map={colorMap}
         normalMap={normalMap}
