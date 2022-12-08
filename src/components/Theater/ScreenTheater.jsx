@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getImagesByFilmId } from "../../api/getImagesByFilmId";
 
-export const ScreenTheater = () => {
+export const ScreenTheater = ({id}) => {
   const [images, setImages] = useState();
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
   const [length, setLength] = useState(0);
 
   async function getImages(id) {
-    const data = await getImagesByFilmId(550);
+    const data = await getImagesByFilmId(id);
     setImages(data.backdrops);
     setLength(data.backdrops.length);
     setLoading(false);
@@ -32,11 +32,11 @@ export const ScreenTheater = () => {
   }, [images]);
 
   useEffect(() => {
-    getImages();
+    getImages(id);
   }, []);
 
   return (
-    <div className="theater-screen">
+    <div className="theater-screen" onClick={(e) => e.preventDefault()}>
       {loading ? (
         <p className="loading-font">Chargement...</p>
       ) : (

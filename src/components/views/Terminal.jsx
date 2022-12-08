@@ -21,7 +21,6 @@ const Terminal = ({ handleChangeView }) => {
   const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
   const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
   const [isOnMenu, setIsOnMenu] = useState(true); // savoir si nous sommes sur le menu principale
-
   const dispatch = useDispatch();
 
   const buttonsFilter = [

@@ -1,12 +1,9 @@
 import * as THREE from "three";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import "../styles/Theater.css";
-import {
-  Html,
-  ContactShadows,
-  OrbitControls,
-} from "@react-three/drei";
+import { useSelector } from "react-redux";
+import { Html, ContactShadows, OrbitControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber/dist/react-three-fiber.cjs";
 import { TextureLoader } from "three";
 import colorMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_basecolor.jpg";
@@ -16,7 +13,7 @@ import roughnessMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ro
 import aoMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ambientOcclusion.jpg";
 import { ScreenTheater } from "../Theater/ScreenTheater";
 
-function Box(props) {
+function Box({ position, id }) {
   // This reference will give us direct access to the mesh
   const mesh = useRef();
   // Set up state for the hovered and active state
@@ -25,7 +22,7 @@ function Box(props) {
   // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
-      {...props}
+      position={position}
       ref={mesh}
       scale={active ? 1.5 : 1}
       onClick={(event) => console.log("click")}
@@ -37,7 +34,7 @@ function Box(props) {
       <boxGeometry args={[20, 10, 2]} />
       <meshPhongMaterial color={"white"} />
       <Html position={[0, 0.05, 1.01]} color={"transparent"} transform occlude>
-        <ScreenTheater />
+        <ScreenTheater id={id} />
       </Html>
     </mesh>
   );
@@ -59,25 +56,22 @@ function Wall(props) {
 
   const diviseur = 12;
 
-    colorMap.repeat.set(diviseur, diviseur);
-    aoMap.repeat.set(diviseur, diviseur);
-    normalMap.repeat.set(diviseur, diviseur);
-    heightMap.repeat.set(diviseur, diviseur);
-    roughnessMap.repeat.set(diviseur, diviseur);
+  colorMap.repeat.set(diviseur, diviseur);
+  aoMap.repeat.set(diviseur, diviseur);
+  normalMap.repeat.set(diviseur, diviseur);
+  heightMap.repeat.set(diviseur, diviseur);
+  roughnessMap.repeat.set(diviseur, diviseur);
 
-    colorMap.wrapS = THREE.RepeatWrapping;
-    colorMap.wrapT = THREE.RepeatWrapping;
-    normalMap.wrapS = THREE.RepeatWrapping;
-    normalMap.wrapT = THREE.RepeatWrapping;
-    heightMap.wrapS = THREE.RepeatWrapping;
-    heightMap.wrapT = THREE.RepeatWrapping;
-    roughnessMap.wrapS = THREE.RepeatWrapping;
-    roughnessMap.wrapT = THREE.RepeatWrapping;
-    aoMap.wrapS = THREE.RepeatWrapping;
-    aoMap.wrapT = THREE.RepeatWrapping;
-    
-    
-
+  colorMap.wrapS = THREE.RepeatWrapping;
+  colorMap.wrapT = THREE.RepeatWrapping;
+  normalMap.wrapS = THREE.RepeatWrapping;
+  normalMap.wrapT = THREE.RepeatWrapping;
+  heightMap.wrapS = THREE.RepeatWrapping;
+  heightMap.wrapT = THREE.RepeatWrapping;
+  roughnessMap.wrapS = THREE.RepeatWrapping;
+  roughnessMap.wrapT = THREE.RepeatWrapping;
+  aoMap.wrapS = THREE.RepeatWrapping;
+  aoMap.wrapT = THREE.RepeatWrapping;
 
   return (
     <mesh {...props} ref={mesh}>
@@ -97,13 +91,30 @@ function Wall(props) {
 const Theater = ({ handleChangeView }) => {
   const group = useRef();
 
+  const { filmHistoric } = useSelector((state) => state.playerReducer);
+
+  useEffect(() => {
+    console.log(filmHistoric);
+  }, [filmHistoric]);
+
   return (
     <div className="theater">
-      <button className="theater-exit-button" onClick={() => handleChangeView("terminal")}>Retour</button>
+      <div className="theater-controlls">
+        <button
+          className="theater-exit-button"
+          onClick={() => handleChangeView("terminal")}
+        >
+          Retour
+        </button>
+        <span>Film selectionné : {filmHistoric[filmHistoric.length - 1].title}</span>
+      </div>
       <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
         <spotLight position={[40, 10, 30]} intensity={1.2} />
         <spotLight position={[-40, 10, 30]} intensity={1.2} />
-        <Box position={[0, 0, 0]} />
+        <Box
+          position={[0, 0, 0]}
+          id={filmHistoric[filmHistoric.length - 1].id}
+        />
         <Wall position={[0, 0, -1]} />
         <ContactShadows position={[0, -4.5, 0]} scale={10} blur={2} far={4.5} />
         <OrbitControls

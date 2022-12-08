@@ -20,8 +20,8 @@ export const PlaceTicket = ({ name }) => {
       ctx.rotate(Math.PI / 2);
       ctx.fillText(name, 20, -150);
       ctx.font = "32px Gulax";
-      ctx.fillText("10", 235, -20);
-      ctx.fillText("10", 283, -20);
+      ctx.fillText((Math.floor(Math.random() * 30) + 10).toString(), 235, -20);
+      ctx.fillText((Math.floor(Math.random() * 9) + 1).toString(), 292, -20);
       ctx.font = "24px Gulax";
       ctx.fillStyle = "grey";
       ctx.fillText("9 / 12 / 2022", 25, -120);
