@@ -252,6 +252,9 @@ const Dataviz = ({
                         <span>Retour</span>
                     </button>
                 </div>
+                <div className="nb-films">
+                    <span>Vous avez visionné <b>{filmHistoric.length}</b> films</span>
+                </div>
                 <DatavizSlide
                     isLoading={false}
                     optionsAnnees={optionsAnnees}
