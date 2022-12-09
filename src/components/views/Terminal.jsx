@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import cup from "../../assets/buttons/cup.svg";
 import glass from "../../assets/buttons/glass.svg";
 import star from "../../assets/buttons/star.svg";
+import printersound from "../../assets/sounds/printer.mp3";
 import { getFilmByName } from "../../api/getFilmByName";
 
 const Terminal = ({ handleChangeView }) => {
@@ -22,6 +23,7 @@ const Terminal = ({ handleChangeView }) => {
   const [selectedFilm, setSelectedFilm] = useState(null); // utilisé pour stocker le film selectionné
   const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
   const [isOnMenu, setIsOnMenu] = useState(true); // savoir si nous sommes sur le menu principale
+  const audioPrinter = new Audio(printersound);
   const dispatch = useDispatch();
 
   const buttonsFilter = [
@@ -98,6 +100,8 @@ const Terminal = ({ handleChangeView }) => {
     console.log("print ticket");
     if (ticketStatus === false) {
       setTicketStatus(true);
+      audioPrinter.volume = 0.6;
+      audioPrinter.play();
       dispatch(addFilmHistory(selectedFilm));
     }
   };

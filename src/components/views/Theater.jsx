@@ -11,6 +11,9 @@ import normalMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_norma
 import heightMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_height.png";
 import roughnessMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_roughness.jpg";
 import aoMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ambientOcclusion.jpg";
+import publicSound from "../../assets/sounds/public.mp3";
+import shutSound from "../../assets/sounds/chut.mp3";
+import projectorSound from "../../assets/sounds/projector.mp3";
 import { ScreenTheater } from "../Theater/ScreenTheater";
 
 function Box({ position, id }) {
@@ -90,43 +93,77 @@ function Wall(props) {
 
 const Theater = ({ handleChangeView }) => {
   const group = useRef();
-
   const { filmHistoric } = useSelector((state) => state.playerReducer);
+  const audioPublic = new Audio(publicSound);
+  const audioShut = new Audio(shutSound);
+  audioShut.volume = 0.6;
+  const audioProjector = new Audio(projectorSound);
+  audioProjector.volume = 0.2;
+  audioProjector.loop = true;
 
   useEffect(() => {
     console.log(filmHistoric);
   }, [filmHistoric]);
 
+  useEffect(() => {
+    audioPublic.play();
+    setTimeout(() => {
+      audioShut.play();
+    }, [3000]);
+    setTimeout(() => {
+      audioProjector.play();
+    }, [5000]);
+  }, []);
+
+  const exitTheater = () => {
+    audioProjector.pause();
+    audioProjector.currentTime = 0;
+    handleChangeView("terminal");
+  };
+
   return (
-    <div className="theater">
-      <div className="theater-controlls">
-        <button
-          className="theater-exit-button"
-          onClick={() => handleChangeView("terminal")}
-        >
-          Retour
-        </button>
-        <span>Film selectionné : {filmHistoric[filmHistoric.length - 1].title}</span>
+    <>
+      <div className="theater-fade">
+        <p>Vous entrez dans la salle...</p>
       </div>
-      <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
-        <spotLight position={[40, 10, 30]} intensity={1.2} />
-        <spotLight position={[-40, 10, 30]} intensity={1.2} />
-        <Box
-          position={[0, 0, 0]}
-          id={filmHistoric[filmHistoric.length - 1].id}
-        />
-        <Wall position={[0, 0, -1]} />
-        <ContactShadows position={[0, -4.5, 0]} scale={10} blur={2} far={4.5} />
-        <OrbitControls
-          enablePan={false}
-          enableZoom={false}
-          minAzimuthAngle={-Math.PI / 8}
-          maxAzimuthAngle={Math.PI / 8}
-          minPolarAngle={Math.PI / 2.2}
-          maxPolarAngle={Math.PI / 2.2}
-        />
-      </Canvas>
-    </div>
+      <div className="theater">
+        <div className="theater-controlls">
+          <button
+            className="theater-exit-button"
+            onClick={exitTheater}
+          >
+            Retour
+          </button>
+          <span>
+            Film selectionné : {filmHistoric[filmHistoric.length - 1].title}{" "}
+            (ajouté aux statistiques)
+          </span>
+        </div>
+        <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
+          <spotLight position={[40, 10, 30]} intensity={1.2} />
+          <spotLight position={[-40, 10, 30]} intensity={1.2} />
+          <Box
+            position={[0, 0, 0]}
+            id={filmHistoric[filmHistoric.length - 1].id}
+          />
+          <Wall position={[0, 0, -1]} />
+          <ContactShadows
+            position={[0, -4.5, 0]}
+            scale={10}
+            blur={2}
+            far={4.5}
+          />
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            minAzimuthAngle={-Math.PI / 8}
+            maxAzimuthAngle={Math.PI / 8}
+            minPolarAngle={Math.PI / 2.2}
+            maxPolarAngle={Math.PI / 2.2}
+          />
+        </Canvas>
+      </div>
+    </>
   );
 };
 

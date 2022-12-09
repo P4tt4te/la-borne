@@ -14,7 +14,7 @@ export const TerminalProfil = ({
     setOnPrint(true);
     setTimeout(() => {
       setOnPrint(false);
-    },2400);
+    },5000);
     printTicket(true);
   }
 
