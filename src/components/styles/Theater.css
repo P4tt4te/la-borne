@@ -63,6 +63,7 @@
   box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.25);
   transition: 0.2s linear;
   border: none;
+  color: white;
 }
 
 .theater-exit-button:hover {
