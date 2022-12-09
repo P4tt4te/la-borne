@@ -52,6 +52,27 @@
   font-family: Gulax, arial;
 }
 
+.theater-exit-button {
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: rgba(15, 146, 75, 0.31);
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.25);
+  transition: 0.2s linear;
+  border: none;
+}
+
+.theater-exit-button:hover {
+  cursor: pointer;
+  background: rgba(0, 255, 117, 0.33);
+  box-shadow: 0px 0px 10px rgba(15, 146, 75, 0.72),
+    inset 0px 0px 15px rgba(15, 146, 75, 0.94),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.25);
+}
+
 .black-bar {
   position: absolute;
   background: black;
@@ -86,5 +107,5 @@
 
 .theater-controlls > span {
   opacity: 0.5;
-  font-size: 12px;
+  font-size: 18px;
 }

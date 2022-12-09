@@ -13,6 +13,7 @@ import roughnessMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ro
 import aoMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ambientOcclusion.jpg";
 import publicSound from "../../assets/sounds/public.mp3";
 import shutSound from "../../assets/sounds/chut.mp3";
+import exitGuy from "../../assets/buttons/exit_guy.svg";
 import projectorSound from "../../assets/sounds/projector.mp3";
 import { ScreenTheater } from "../Theater/ScreenTheater";
 
@@ -132,7 +133,8 @@ const Theater = ({ handleChangeView }) => {
             className="theater-exit-button"
             onClick={exitTheater}
           >
-            Retour
+            <img src={exitGuy} alt="exit guy" />
+            <span>Sortie</span>
           </button>
           <span>
             Film selectionné : {filmHistoric[filmHistoric.length - 1].title}{" "}
