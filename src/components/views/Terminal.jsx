@@ -100,6 +100,7 @@ const Terminal = ({ handleChangeView }) => {
     console.log("print ticket");
     if (ticketStatus === false) {
       setTicketStatus(true);
+      audioPrinter.volume = 0.6;
       audioPrinter.play();
       dispatch(addFilmHistory(selectedFilm));
     }
