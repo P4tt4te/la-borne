@@ -4,6 +4,7 @@
   top: 0;
   right: 0;
   left: 0;
+  z-index: 10;
 }
 
 .theater-screen {
@@ -15,6 +16,40 @@
   postion: relative;
   user-select: none;
   z-index: 1;
+}
+
+.theater-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background-color: black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+  animation: 1s linear both faceAnim 5.5s;
+}
+
+@keyframes faceAnim {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+    top: 0;
+  }
+  100% {
+    opacity: 0;
+    top: 100vh;
+  }
+}
+
+.theater-fade > p {
+  font-size: 42px;
+  font-family: Gulax, arial;
 }
 
 .black-bar {
