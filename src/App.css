@@ -162,7 +162,6 @@ input {
   margin-top: 100px;
   z-index: 2;
   margin-bottom: 100px;
-  transition: 0.8s; 
 }
 
 .movie-poster .image-blur {
