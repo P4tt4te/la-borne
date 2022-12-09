@@ -5,6 +5,11 @@ export const PlaceTicket = ({ name }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    let filmText = name;
+    if (filmText.length > 15) {
+      filmText = filmText.slice(0, 16);
+      filmText = filmText + "...";
+    }
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const template = new Image();
@@ -18,7 +23,7 @@ export const PlaceTicket = ({ name }) => {
       ctx.drawImage(template, 0, 0, 209, 426.11);
       ctx.font = "48px Gulax";
       ctx.rotate(Math.PI / 2);
-      ctx.fillText(name, 20, -150);
+      ctx.fillText(filmText, 20, -150);
       ctx.font = "32px Gulax";
       ctx.fillText((Math.floor(Math.random() * 30) + 10).toString(), 235, -20);
       ctx.fillText((Math.floor(Math.random() * 9) + 1).toString(), 292, -20);
