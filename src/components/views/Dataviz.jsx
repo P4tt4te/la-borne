@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import Chart from "react-apexcharts";
-import DeficitChart from "./charts/DeficitChart";
-import GeographyChart from "./charts/GeographyChart";
-import ReviewsChart from "./charts/ReviewsChart";
+import React, { useEffect, useState } from "react";
+
+import arrow from "../../assets/arrow.svg"
+import chevronLeft from "../../assets/buttons/chevronLeft.svg"
+
+import { DatavizSlide } from "../Dataviz/DatavizSlide";
 
 export const fakeData = [
     {
@@ -492,35 +491,56 @@ const Dataviz = ({
     }, [])
 
     return (
-        <div style={{ color: 'black' }}>
-            <h1>Années: DONUT</h1>
-            <Chart
-                type="donut"
-                options={optionsAnnees}
-                series={seriesAnnees}
-                width="500"
-            />
-            <h1>Reviews: JAUGE</h1>
-            <ReviewsChart reviewsData={reviewsData} />
-            <h1>Budgets déficit: JAUGE</h1>
-            <DeficitChart deficitData={deficitData} />
-            <h1>Genres: TREEMAP</h1>
-            <Chart
-                type="treemap"
-                options={options}
-                series={series}
-                width="500"
-            />
-            <h1>Budget: DONUT</h1>
-            <Chart
-                type="donut"
-                options={optionsBudget}
-                series={seriesBudgets}
-                width="500"
-            />
-            <h1>Pays: MAP</h1>
-            <GeographyChart geoData={geoData} />
+        <div className="terminal">
+            <div className="terminal-border-left">
+                <div>
+                    <button
+                        className="button-retour"
+                        onClick={() => handleChangeView("terminal")}
+                    >
+                        <img width={30} src={chevronLeft} />
+                        <span>Retour</span>
+                    </button>
+                </div>
+                <DatavizSlide
+                    isLoading={false}
+                    optionsAnnees={optionsAnnees}
+                    seriesAnnees={seriesAnnees}
+                    reviewsData={reviewsData}
+                    deficitData={deficitData}
+                    options={options}
+                    series={series}
+                    optionsBudget={optionsBudget}
+                    seriesBudgets={seriesBudgets}
+                    geoData={geoData}
+                />
+
+            </div>
+            <div className="terminal-border-right">
+                <div className="terminal-right-ticket">
+                    <span>Récupérer votre ticket</span>
+                    <div>
+                        <img src={arrow} />
+                        <img src={arrow} />
+                        <img src={arrow} />
+                    </div>
+                    <div className="terminal-ticket">
+                        <div className="terminal-ticket-box"></div>
+                        <div
+                            onClick={() => handleChangeView("theater")}
+                            className={`terminal-ticket-container `}
+                        >
+
+                        </div>
+                    </div>
+                </div>
+                <div className="terminal-right-title">
+                    <h1>La borne</h1>
+                    <p>831,946 films</p>
+                </div>
+            </div>
         </div>
+
     )
 }
 

@@ -25,7 +25,7 @@ const colors = [
 export const options = {
     // region: "002", // Africa
     colorAxis: { colors: colors },
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#0D0D0F",
     datalessRegionColor: "white",
     defaultColor: "#f5f5f5",
   };
