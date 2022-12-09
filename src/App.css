@@ -20,7 +20,7 @@
 }
 
 .terminal-border-left {
-  background-color: #0D0D0F;
+  background-color: #0d0d0f;
   margin: 20px 10px 20px 20px;
   border-radius: 10px;
   width: 80%;
@@ -39,13 +39,13 @@
   font-family: "Gulax", Inter, Arial;
 }
 
-.terminal-right-title>h1 {
+.terminal-right-title > h1 {
   margin: 0 0 10px 0;
   padding: 0;
   font-size: 3rem;
 }
 
-.terminal-right-title>p {
+.terminal-right-title > p {
   margin: 0;
   padding: 0;
   color: var(--secondary-borne);
@@ -76,11 +76,38 @@
   position: absolute;
   top: -430px;
   left: 12px;
-  transition: 2.5s linear;
 }
 
 .terminal-ticket-container.on {
   top: -10px;
+  animation: linear 5s ticketAnim;
+}
+
+@keyframes ticketAnim {
+  0% {
+    top: -430px;
+  }
+  5% {
+    top: -400px;
+  }
+  15% {
+    top: -400px;
+  }
+  30% {
+    top: -300px;
+  }
+  40% {
+    top: -300px;
+  }
+  50% {
+    top: -200px;
+  }
+  60% {
+    top: -200px;
+  }
+  100% {
+    top: -10px;
+  }
 }
 
 .terminal-buttons-filter {
@@ -103,7 +130,7 @@
 }
 
 .terminal-buttons-filter .button-filter:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .terminal-buttons-filter .button-filter.active {
@@ -227,7 +254,7 @@
   bottom: 0;
   border-radius: 24px;
   width: 160px;
-  background-color: #D03C3CFF;
+  background-color: #d03c3cff;
   position: absolute;
 }
 
@@ -243,7 +270,7 @@
   bottom: 0;
   border-radius: 24px;
   width: 160px;
-  background-color: #6122E7;
+  background-color: #6122e7;
   position: absolute;
 }
 
@@ -255,15 +282,14 @@
   width: 200px;
   position: absolute;
   border-radius: 24px;
-
 }
 
 .reviews-label {
-  background-color: #6122E7;
+  background-color: #6122e7;
 }
 
 .deficit-label {
-  background-color: #D03C3CFF;
+  background-color: #d03c3cff;
 }
 
 .film-profil-poster img {
@@ -281,7 +307,7 @@
   gap: 3px;
 }
 
-.film-profil-content-head>div>h2 {
+.film-profil-content-head > div > h2 {
   font-size: 3rem;
   height: 35px;
 }
@@ -304,7 +330,7 @@
   margin-top: 30px;
 }
 
-.film-profil-categories>span {
+.film-profil-categories > span {
   background-color: #1e1e1e;
   padding: 12px 24px;
   border-radius: 23px;
