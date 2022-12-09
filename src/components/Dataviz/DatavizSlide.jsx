@@ -21,7 +21,6 @@ export const DatavizSlide = ({
     slides: {
       origin: "center",
       perView: 1,
-      //   spacing: 44,
     },
   });
 

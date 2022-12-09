@@ -1,6 +1,5 @@
 import {
   ADD_FILM_HISTORY,
-  SET_FILM_ACTIVE,
 } from "../constants/playerConstants";
 
 /* Source of truth */

@@ -30,7 +30,7 @@ const DeficitChart = ({ deficitData }) => {
                 </div>
             </div>
             <div className="jauge-label deficit-label">
-                <p><b>{deficitData}%</b> des films regardés ont des avis positifs </p>
+                <p><b>{deficitData}%</b> des films regardés sont déficitaires</p>
             </div>
         </div>
     )

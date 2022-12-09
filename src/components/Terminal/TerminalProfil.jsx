@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import star from "../../assets/star.svg";
 import clock from "../../assets/clock.svg";
+import chevronLeft from "../../assets/buttons/chevronLeft.svg";
 
 export const TerminalProfil = ({
   isLoading,
@@ -14,7 +15,7 @@ export const TerminalProfil = ({
     setOnPrint(true);
     setTimeout(() => {
       setOnPrint(false);
-    },2400);
+    }, 2400);
     printTicket(true);
   }
 
@@ -31,9 +32,15 @@ export const TerminalProfil = ({
           ) : (
             <>
               <div className="film-profil-head">
-                <button onClick={() => setSelectedFilm(null)}>
-                  Revenir à la liste
-                </button>
+                <div>
+                  <button
+                    className="button-retour"
+                    onClick={() => setSelectedFilm(null)}
+                  >
+                    <img width={30} src={chevronLeft} />
+                    <span>Retour</span>
+                  </button>
+                </div>
               </div>
               <div className="film-profil-container">
                 <div className="film-profil-poster">
@@ -71,7 +78,7 @@ export const TerminalProfil = ({
                     <p>{selectedFilm.overview}</p>
                   </div>
                   <div className="film-profil-ticket">
-                    <button onClick={printAction}>
+                    <button className="general-button primary-button" onClick={printAction}>
                       Acheter mon Ticket
                     </button>
                   </div>

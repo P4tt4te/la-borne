@@ -7,10 +7,11 @@ import arrow from "../../assets/arrow.svg";
 import { TerminalProfil } from "../Terminal/TerminalProfil";
 import { PlaceTicket } from "../Ticket/PlaceTicket";
 import { addFilmHistory } from "../../store/actions/actionsTypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import cup from "../../assets/buttons/cup.svg";
 import glass from "../../assets/buttons/glass.svg";
 import star from "../../assets/buttons/star.svg";
+import ticket from "../../assets/buttons/ticket.svg";
 import { getFilmByName } from "../../api/getFilmByName";
 
 const Terminal = ({ handleChangeView }) => {
@@ -23,6 +24,9 @@ const Terminal = ({ handleChangeView }) => {
   const [ticketStatus, setTicketStatus] = useState(false); // savoir si le ticket est imprimé
   const [isOnMenu, setIsOnMenu] = useState(true); // savoir si nous sommes sur le menu principale
   const dispatch = useDispatch();
+
+  const { filmHistoric } = useSelector((state) => state.playerReducer);
+
 
   const buttonsFilter = [
     {
@@ -95,7 +99,6 @@ const Terminal = ({ handleChangeView }) => {
 
   //si le ticket est true on l'ajoute
   const printTicket = (value) => {
-    console.log("print ticket");
     if (ticketStatus === false) {
       setTicketStatus(true);
       dispatch(addFilmHistory(selectedFilm));
@@ -109,14 +112,18 @@ const Terminal = ({ handleChangeView }) => {
         {selectedFilm === null ? (
           <>
             {isOnMenu ? (
-              <>
-                <button onClick={() => setIsOnMenu(false)}>
-                  Acheter un ticket
+              <div className="buttons-menu">
+                <button className='general-button primary-button' onClick={() => setIsOnMenu(false)}>
+                  <span style={{ verticalAlign: "middle" }}>Acheter un ticket</span>
+                  <img src={ticket} style={{ rotate: "-20deg", marginLeft: 10, width: "30px", verticalAlign: "middle" }} />
                 </button>
-                <button onClick={() => handleChangeView("dataviz")}>
-                  Statistiques de mes films
-                </button>
-              </>
+                {
+                  filmHistoric.length > 0 &&
+                  <button className='general-button secondary-button' onClick={() => handleChangeView("dataviz")}>
+                    Statistiques de vos films
+                  </button>
+                }
+              </div>
             ) : (
               <>
                 <div className="terminal-buttons-filter">
