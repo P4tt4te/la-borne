@@ -328,3 +328,7 @@
 .theater-chart .apexcharts-toolbar {
   display: none;
 }
+
+.dataviz-slide {
+  color: white;
+}
