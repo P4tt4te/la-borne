@@ -5,7 +5,7 @@ import Terminal from './components/views/Terminal';
 import Theater from './components/views/Theater';
 
 function App() {
-  const [view, setView] = useState("dataviz");
+  const [view, setView] = useState("terminal");
 
   const handleChangeView = (view) => setView(view)
 

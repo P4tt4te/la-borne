@@ -1,39 +1,55 @@
 .theater {
-    position: fixed;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+}
 
-  .theater-screen {
-    width: 800px;
-    height: 405px;
-    overflow: hidden;
-    color: white;
-    background: black;
-    postion: relative;
-  }
+.theater-screen {
+  width: 800px;
+  height: 405px;
+  overflow: hidden;
+  color: white;
+  background: black;
+  postion: relative;
+  user-select: none;
+  z-index: 1;
+}
 
-  .black-bar {
-    position: absolute;
-    background: black;
-    left: 0;
-    right: 0;
-    height: 30px;
-  }
+.black-bar {
+  position: absolute;
+  background: black;
+  left: 0;
+  right: 0;
+  height: 30px;
+}
 
-  .black-bar.top {
-    top:0;
-  }
+.black-bar.top {
+  top: 0;
+}
 
-  .black-bar.bottom {
-    bottom:0;
-  }
+.black-bar.bottom {
+  bottom: 0;
+}
 
+.loading-font {
+  margin-left: 30px;
+  margin-top: 30px;
+  font-family: Gulax;
+}
 
-  .loading-font {
-    margin-left: 30px;
-    margin-top: 30px;
-    font-family: Gulax;
-  }
+.theater-controlls {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theater-controlls > span {
+  opacity: 0.5;
+  font-size: 12px;
+}
