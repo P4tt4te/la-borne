@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import React, { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useEffect, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
 import "../styles/Theater.css";
 import { useSelector } from "react-redux";
 import { Html, ContactShadows, OrbitControls } from "@react-three/drei";
@@ -162,6 +162,7 @@ const Theater = ({ handleChangeView }) => {
             maxAzimuthAngle={Math.PI / 8}
             minPolarAngle={Math.PI / 2.2}
             maxPolarAngle={Math.PI / 2.2}
+            rotateSpeed={0.6}
           />
         </Canvas>
       </div>

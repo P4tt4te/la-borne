@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import arrow from "../../assets/arrow.svg"
 import chevronLeft from "../../assets/buttons/chevronLeft.svg"
-
 import { DatavizSlide } from "../Dataviz/DatavizSlide";
 
 
@@ -168,7 +166,7 @@ const Dataviz = ({
                 deficitCount++;
             }
         })
-        let res = (deficitCount / total) * 100;
+        let res = ((deficitCount / total) * 100).toFixed(2);
         setDeficitData(res)
     }
     const makeDataGeography = () => {
@@ -203,7 +201,7 @@ const Dataviz = ({
                 reviewsCount++
             }
         })
-        let res = (reviewsCount / total) * 100;
+        let res = ((reviewsCount / total) * 100).toFixed(2);
         setReviewsData(res)
     }
     const makeDataAnnees = () => {
