@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import arrow from "../../assets/arrow.svg";
+import arrow from "../../assets/arrow.svg"
+import chevronLeft from "../../assets/buttons/chevronLeft.svg"
+
 import { DatavizSlide } from "../Dataviz/DatavizSlide";
 
 export const fakeData = [
@@ -491,6 +493,15 @@ const Dataviz = ({
     return (
         <div className="terminal">
             <div className="terminal-border-left">
+                <div>
+                    <button
+                        className="button-retour"
+                        onClick={() => handleChangeView("terminal")}
+                    >
+                        <img width={30} src={chevronLeft} />
+                        <span>Retour</span>
+                    </button>
+                </div>
                 <DatavizSlide
                     isLoading={false}
                     optionsAnnees={optionsAnnees}

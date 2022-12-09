@@ -34,43 +34,56 @@ export const DatavizSlide = ({
           <>
             <div ref={sliderRef} className="keen-slider">
               <div className={"keen-slider__slide"}>
-                <h1>Années: DONUT</h1>
-                <Chart
-                  type="donut"
-                  options={optionsAnnees}
-                  series={seriesAnnees}
-                  width="500"
-                />
+                <div className="chart-style chart-genres">
+                  <h1>Vos genres préférés</h1>
+                  <Chart
+                    type="treemap"
+                    options={options}
+                    series={series}
+                    width="800"
+                  />
+                </div>
               </div>
               <div className={"keen-slider__slide"}>
-                <h1>Reviews: JAUGE</h1>
-                <ReviewsChart reviewsData={reviewsData} />
+                <div className="chart-style chart-annees">
+                  <h1>Vos années de prédilection</h1>
+                  <Chart
+                    type="donut"
+                    options={optionsAnnees}
+                    series={seriesAnnees}
+                    width="700"
+                  />
+                </div>
               </div>
               <div className={"keen-slider__slide"}>
-                <h1>Budgets déficit: JAUGE</h1>
-                <DeficitChart deficitData={deficitData} />
+                <div className="chart-style chart-reviews">
+                  <h1>Reviews des spectateurs</h1>
+                  <ReviewsChart reviewsData={reviewsData} />
+                </div>
               </div>
               <div className={"keen-slider__slide"}>
-                <h1>Genres: TREEMAP</h1>
-                <Chart
-                  type="treemap"
-                  options={options}
-                  series={series}
-                  width="500"
-                />
+                <div className="chart-style chart-reviews">
+                  <h1>Déficit</h1>
+                  <DeficitChart deficitData={deficitData} />
+                </div>
+              </div>
+
+              <div className={"keen-slider__slide"}>
+                <div className="chart-style chart-budget">
+                  <h1>Les budgets</h1>
+                  <Chart
+                    type="donut"
+                    options={optionsBudget}
+                    series={seriesBudgets}
+                    width="700"
+                  />
+                </div>
               </div>
               <div className={"keen-slider__slide"}>
-                <h1>Budget: DONUT</h1>
-                <Chart
-                  type="donut"
-                  options={optionsBudget}
-                  series={seriesBudgets}
-                  width="500"
-                />
-              </div>
-              <div className={"keen-slider__slide"}>
-                <h1>Pays: MAP</h1>
-                <GeographyChart geoData={geoData} />
+                <div className="chart-style chart-geo">
+                  <h1>Les pays</h1>
+                  <GeographyChart geoData={geoData} />
+                </div>
               </div>
             </div>
           </>

@@ -332,3 +332,40 @@
 .dataviz-slide {
   color: white;
 }
+
+.apexcharts-legend-text {
+  color: white !important;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light {
+  color: black;
+}
+
+/* CHARTS */
+.chart-style {
+  padding: 30px 60px;
+}
+
+
+.button-retour {
+  transition: 0.3s;
+  padding: 0;
+  margin-left: 60px;
+  opacity: 0.8;
+  height: 80px;
+  font-size: 20px;
+  color: white;
+  border: none;
+  background-color: transparent;
+}
+
+.button-retour img, .button-retour span {
+  vertical-align: middle;
+}
+
+
+.button-retour:hover{
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.3s;
+}

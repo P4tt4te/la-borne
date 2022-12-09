@@ -21,7 +21,7 @@ const ReviewsChart = ({ reviewsData }) => {
     }, [reviewsData])
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', marginTop: 120 }}>
             <div className="jauge-div">
                 <div className="jauge-reviews-ext"> </div>
 
@@ -32,7 +32,7 @@ const ReviewsChart = ({ reviewsData }) => {
                 </div>
             </div>
             <div className="jauge-label reviews-label">
-                <p>{reviewsData}% des films regardés ont des avis positifs </p>
+                <p><b>{reviewsData}%</b> des films regardés ont des avis positifs </p>
             </div>
         </div>
     )

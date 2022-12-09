@@ -165,7 +165,7 @@ const Terminal = ({ handleChangeView }) => {
       </div>
       <div className="terminal-border-right">
         <div className="terminal-right-ticket">
-          <span>Récupérer votre ticket</span>
+          <span>Récupérez votre ticket</span>
           <div>
             <img src={arrow} />
             <img src={arrow} />

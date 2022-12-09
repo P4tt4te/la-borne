@@ -22,7 +22,7 @@ const DeficitChart = ({ deficitData }) => {
     }, [deficitData])
 
     return (
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", marginTop: 120 }}>
             <div className="jauge-div">
                 <div className="jauge-deficit-ext"> </div>
                 <div className="jauge-int">
@@ -30,7 +30,7 @@ const DeficitChart = ({ deficitData }) => {
                 </div>
             </div>
             <div className="jauge-label deficit-label">
-                <p>{deficitData}% des films regardés ont des avis positifs </p>
+                <p><b>{deficitData}%</b> des films regardés ont des avis positifs </p>
             </div>
         </div>
     )
