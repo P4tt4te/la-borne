@@ -13,6 +13,7 @@ import roughnessMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ro
 import aoMapTexture from "../../assets/textures/wall/Acoustic_Foam_001_ambientOcclusion.jpg";
 import publicSound from "../../assets/sounds/public.mp3";
 import shutSound from "../../assets/sounds/chut.mp3";
+import projectorSound from "../../assets/sounds/projector.mp3";
 import { ScreenTheater } from "../Theater/ScreenTheater";
 
 function Box({ position, id }) {
@@ -95,6 +96,10 @@ const Theater = ({ handleChangeView }) => {
   const { filmHistoric } = useSelector((state) => state.playerReducer);
   const audioPublic = new Audio(publicSound);
   const audioShut = new Audio(shutSound);
+  audioShut.volume = 0.6;
+  const audioProjector = new Audio(projectorSound);
+  audioProjector.volume = 0.2;
+  audioProjector.loop = true;
 
   useEffect(() => {
     console.log(filmHistoric);
@@ -103,9 +108,18 @@ const Theater = ({ handleChangeView }) => {
   useEffect(() => {
     audioPublic.play();
     setTimeout(() => {
-      audioShut.play()
+      audioShut.play();
     }, [3000]);
+    setTimeout(() => {
+      audioProjector.play();
+    }, [5000]);
   }, []);
+
+  const exitTheater = () => {
+    audioProjector.pause();
+    audioProjector.currentTime = 0;
+    handleChangeView("terminal");
+  };
 
   return (
     <>
@@ -116,12 +130,13 @@ const Theater = ({ handleChangeView }) => {
         <div className="theater-controlls">
           <button
             className="theater-exit-button"
-            onClick={() => handleChangeView("terminal")}
+            onClick={exitTheater}
           >
             Retour
           </button>
           <span>
-            Film selectionné : {filmHistoric[filmHistoric.length - 1].title}
+            Film selectionné : {filmHistoric[filmHistoric.length - 1].title}{" "}
+            (ajouté aux statistiques)
           </span>
         </div>
         <Canvas camera={{ position: [-5, 0, -15], fov: 55 }}>
